@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var hexColorString = ""
-        
+    
     @State private var buttonText = "Start"
     
     var hexColor: Color {
@@ -19,12 +19,11 @@ struct ContentView: View {
         let redComponent = (color & 0xFF0000) >> 16
         let greenComponent = (color & 0x00FF00) >> 8
         let blueComponent = color & 0x0000FF
-
         let myColor = Color(red: Double(redComponent) / 255, green: Double(greenComponent) / 255, blue: Double(blueComponent) / 255)
         
         return myColor
     }
-
+    
     var body: some View {
         
         VStack(alignment: .center) {
@@ -32,13 +31,18 @@ struct ContentView: View {
             RoundedRectangle(cornerRadius: 10)
                 .frame(width: 300, height: 300)
                 .foregroundColor(hexColor)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.secondary, lineWidth: 1)
+            )
             
             
             
             TextField("Enter a hex color #bec8c7", text: $hexColorString)
                 .multilineTextAlignment(TextAlignment.center)
                 .padding()
-
+                .foregroundColor(.primary)
+            
             Spacer()
             
             Button(action: {
@@ -52,30 +56,20 @@ struct ContentView: View {
                 Text(self.buttonText)
                     .overlay(
                         Circle()
-                        .stroke()
-                        .frame(width: 150, height: 150)
+                            .stroke()
+                            .frame(width: 150, height: 150)
                 )
             }
-        
+                
             .buttonStyle(PlainButtonStyle())
-
+            
             Spacer()
         }
         
     }
-    func myColor(hexString: String) -> Color {
-        let UIntString = "0x" + hexString
-        var hexColor: UInt32 = 0xeb7e3b
-        hexColor = UInt32(UIntString) ?? 0xeb7e3b
-        let redComponent = (hexColor & 0xFF0000) >> 16
-        let greenComponent = (hexColor & 0x00FF00) >> 8
-        let blueComponent = hexColor & 0x0000FF
-
-        let myColor = Color(red: Double(redComponent) / 255, green: Double(greenComponent) / 255, blue: Double(blueComponent) / 255)
-        
-        return myColor
-
-    }
+    //methods
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
