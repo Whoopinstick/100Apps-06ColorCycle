@@ -56,12 +56,10 @@
 		0A3CD2A924DB169B003CD062 /* 06 - Color Cycle */ = {
 			isa = PBXGroup;
 			children = (
-				0A3CD2AA24DB169B003CD062 /* AppDelegate.swift */,
-				0A3CD2AC24DB169B003CD062 /* SceneDelegate.swift */,
-				0A3CD2AE24DB169B003CD062 /* ContentView.swift */,
 				0A3CD2B024DB169B003CD062 /* Assets.xcassets */,
-				0A3CD2B524DB169B003CD062 /* LaunchScreen.storyboard */,
 				0A3CD2B824DB169B003CD062 /* Info.plist */,
+				0A3CD2BE24DB16B3003CD062 /* Delegate */,
+				0A3CD2BF24DB16C1003CD062 /* View */,
 				0A3CD2B224DB169B003CD062 /* Preview Content */,
 			);
 			path = "06 - Color Cycle";
@@ -73,6 +71,24 @@
 				0A3CD2B324DB169B003CD062 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0A3CD2BE24DB16B3003CD062 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				0A3CD2AA24DB169B003CD062 /* AppDelegate.swift */,
+				0A3CD2AC24DB169B003CD062 /* SceneDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		0A3CD2BF24DB16C1003CD062 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0A3CD2B524DB169B003CD062 /* LaunchScreen.storyboard */,
+				0A3CD2AE24DB169B003CD062 /* ContentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
