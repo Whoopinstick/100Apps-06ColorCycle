@@ -24,6 +24,11 @@ struct ContentView: View {
         return myColor
     }
     
+    @State private var colorCycleUInt: [UInt32] = []
+    @State private  var colorCycleColor: [Color] = []
+    @State private var timer: Timer?
+    @State private var timerValue = 0
+    
     var body: some View {
         ZStack {
             
@@ -44,7 +49,7 @@ struct ContentView: View {
                 } else {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 300, height: 300)
-                        .foregroundColor(.blue)
+                        .foregroundColor(colorCycleColor[timerValue])
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.secondary, lineWidth: 1)
@@ -67,8 +72,21 @@ struct ContentView: View {
                 
                 Button(action: {
                     if self.buttonText == "Start" {
+                        self.buildColorCycle(from: self.hexColorString)
+                        self.convertToColors(from: self.colorCycleUInt)
+                        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                            //increment a value
+                            if self.timerValue < 7 {
+                                self.timerValue += 1
+                            } else {
+                                self.timerValue = 0
+                            }
+                        }
                         self.buttonText = "Stop"
                     } else {
+                        self.colorCycleUInt = []
+                        self.colorCycleColor = []
+                        self.timer?.invalidate()
                         self.buttonText = "Start"
                     }
                     
@@ -89,6 +107,28 @@ struct ContentView: View {
         
     }
     //methods
+    func buildColorCycle(from colorString: String) {
+        let hexColorString = colorString
+        let initialColor: UInt32 = UInt32(hexColorString, radix: 16) ?? 0xffffff
+        
+        colorCycleUInt.append(initialColor)
+        for i in 1..<8 {
+            colorCycleUInt.append(initialColor + UInt32((25 * i)))
+        }
+    }
+    
+    func convertToColors(from UIntColor: [UInt32]) {
+        
+        for color in colorCycleUInt {
+            let redComponent = (color & 0xFF0000) >> 16
+            let greenComponent = (color & 0x00FF00) >> 8
+            let blueComponent = color & 0x0000FF
+            let myColor = Color(red: Double(redComponent) / 255, green: Double(greenComponent) / 255, blue: Double(blueComponent) / 255)
+            
+            colorCycleColor.append(myColor)
+            
+        }
+    }
     
     
 }
