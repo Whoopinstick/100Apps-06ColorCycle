@@ -25,45 +25,66 @@ struct ContentView: View {
     }
     
     var body: some View {
-        
-        VStack(alignment: .center) {
+        ZStack {
             
-            RoundedRectangle(cornerRadius: 10)
-                .frame(width: 300, height: 300)
-                .foregroundColor(hexColor)
-                .overlay(
+            LinearGradient(gradient: Gradient(colors: [.white,.gray,.gray,.black]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack(alignment: .center) {
+                
+                //
+                if buttonText == "Start" {
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.secondary, lineWidth: 1)
-            )
-            
-            
-            
-            TextField("Enter a hex color #bec8c7", text: $hexColorString)
-                .multilineTextAlignment(TextAlignment.center)
-                .padding()
-                .foregroundColor(.primary)
-            
-            Spacer()
-            
-            Button(action: {
-                if self.buttonText == "Start" {
-                    self.buttonText = "Stop"
+                        .frame(width: 300, height: 300)
+                        .foregroundColor(hexColor)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.secondary, lineWidth: 1)
+                    )
                 } else {
-                    self.buttonText = "Start"
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 300, height: 300)
+                        .foregroundColor(.blue)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.secondary, lineWidth: 1)
+                    )
                 }
                 
-            }) {
-                Text(self.buttonText)
-                    .overlay(
-                        Circle()
-                            .stroke()
-                            .frame(width: 150, height: 150)
-                )
-            }
                 
-            .buttonStyle(PlainButtonStyle())
-            
-            Spacer()
+                
+                TextField("Enter a hex color #bec8c7", text: $hexColorString)
+                    .onReceive(hexColorString.publisher.collect()) {
+                        self.hexColorString = String($0.prefix(6))
+                }
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .multilineTextAlignment(TextAlignment.center)
+                .foregroundColor(.primary)
+                .padding()
+                .padding([.leading,.trailing], 20)
+                
+                Spacer()
+                
+                Button(action: {
+                    if self.buttonText == "Start" {
+                        self.buttonText = "Stop"
+                    } else {
+                        self.buttonText = "Start"
+                    }
+                    
+                }) {
+                    Text(self.buttonText)
+                        .overlay(
+                            Circle()
+                                .stroke()
+                                .frame(width: 150, height: 150)
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+                .foregroundColor(.white)
+                
+                Spacer()
+            }
         }
         
     }
