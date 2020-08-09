@@ -113,7 +113,7 @@ struct ContentView: View {
         
         colorCycleUInt.append(initialColor)
         for i in 1..<8 {
-            colorCycleUInt.append(initialColor + UInt32((25 * i)))
+            colorCycleUInt.append(initialColor + UInt32((50 * i)))
         }
     }
     
